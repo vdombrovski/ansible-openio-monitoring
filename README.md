@@ -33,6 +33,12 @@ sudo yum install -y ansible
 
 ### Setup
 
+Clone this repo and install role dependencies:
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
 First setup your inventory according to [this example](inventory/testing.ini).
 
 Now replace ADMIN_IP by the IP of your admin node in [the playbook](site.yml)
