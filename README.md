@@ -46,7 +46,7 @@ Now replace ADMIN_IP by the IP of your admin node in [the playbook](site.yml)
 ### Run
 
 ```sh
-ansible-playbook site.yml
+ansible-playbook main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
