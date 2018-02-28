@@ -1,0 +1,26 @@
+---
+- name: Install and configure the monitoring stack
+  hosts: openio
+  become : true
+  gather_facts: true
+  vars:
+    netdata_backend_enabled: true
+    netdata_backend_destination: [ADMIN_IP]
+  roles:
+    - { role: ansible-role-openio-netdata }
+
+- name: Install monitoring on admin machine
+  hosts: admin
+  become: true
+  gather_facts: true
+  vars:
+    grafana_dashboard:
+        host_regex: "/.*/"
+        namespace: OPENIO
+        group: openio
+    grafana_auth:
+        user: admin
+        password: admin
+  roles:
+    - { role: ansible-role-openio-influxdb }
+    - { role: ansible-role-openio-grafana }
