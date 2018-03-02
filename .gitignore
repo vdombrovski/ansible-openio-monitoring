@@ -1,0 +1,11 @@
+# Ansible
+*.retry
+
+# Vim
+*.swp
+
+# python
+plugins/callback/*.pyc
+
+#roles
+roles/*

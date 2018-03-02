@@ -27,26 +27,35 @@ apt install -y ansible
 ---
 
 > **CentOS 7**
-```
+```sh
 sudo yum install -y ansible
+```
+
+---
+
+> **Other distribution**
+```sh
+virtualenv ansible24
+cd ansible24/
+. ./bin/activate
+pip install --upgrade pip
+pip install ansible>=2.4
 ```
 
 ### Setup
 
 Clone this repo and install role dependencies:
 
-```
+```sh
 ansible-galaxy install -r requirements.yml
 ```
 
 First setup your inventory according to [this example](inventory/testing.ini).
 
-Now replace ADMIN_IP by the IP of your admin node in [the playbook](site.yml)
-
 ### Run
 
 ```sh
-ansible-playbook main.yml
+ansible-playbook -i inventory/testing.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.

@@ -3,24 +3,22 @@
   hosts: openio
   become : true
   gather_facts: true
-  vars:
-    netdata_backend_enabled: true
-    netdata_backend_destination: [ADMIN_IP]
   roles:
-    - { role: ansible-role-openio-netdata }
+    - role: ansible-role-openio-netdata
+      netdata_backend_enabled: true
+      netdata_backend_destination: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
 
 - name: Install monitoring on admin machine
   hosts: admin
   become: true
   gather_facts: true
-  vars:
-    grafana_dashboard:
+  roles:
+    - role: ansible-role-openio-influxdb 
+    - role: ansible-role-openio-grafana
+      grafana_dashboard:
         host_regex: "/.*/"
         namespace: OPENIO
         group: openio
-    grafana_auth:
+      grafana_auth:
         user: admin
         password: admin
-  roles:
-    - { role: ansible-role-openio-influxdb }
-    - { role: ansible-role-openio-grafana }
