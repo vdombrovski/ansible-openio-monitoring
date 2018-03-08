@@ -7,13 +7,18 @@
     - role: ansible-role-openio-netdata
       netdata_backend_enabled: true
       netdata_backend_destination: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
+    - role: ansible-role-openio-diamond
+      diamond_handlers_graphite_host: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
+      diamond_handlers_graphite_port: 2003
+      diamond_collectors_openio_namespace: OPENIO
+
 
 - name: Install monitoring on admin machine
   hosts: admin
   become: true
   gather_facts: true
   roles:
-    - role: ansible-role-openio-influxdb 
+    - role: ansible-role-openio-influxdb
     - role: ansible-role-openio-grafana
       grafana_dashboard:
         host_regex: "/.*/"
