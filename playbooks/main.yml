@@ -50,7 +50,7 @@
           state: present
           duration: 30d
           default: true
-          every: 10s
+          every: 30s
         - name: rp_90d
           db: graphite
           state: absent
@@ -65,7 +65,7 @@
           every: 20m
         - name: rp_inf
           db: graphite
-          state: absent
+          state: present
           duration: INF
           default: false
           every: 30m
