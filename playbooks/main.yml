@@ -7,6 +7,7 @@
     - role: ansible-role-openio-netdata
       netdata_backend_enabled: true
       netdata_backend_destination: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
+      netdata_backend_update_every: 30
     - role: ansible-role-openio-diamond
       diamond_handlers_graphite_host: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
       diamond_handlers_graphite_port: 2003
@@ -19,6 +20,56 @@
   gather_facts: true
   roles:
     - role: ansible-role-openio-influxdb
+      influxdb_conf_max_compactions: 1
+      influxdb_conf_fsync_delay: 100ms
+      influxdb_conf_max_queries: 10
+      influxdb_conf_query_timeout: 20s
+      influxdb_conf_write_timeout: 10s
+      influxdb_ds:
+        - name: cq_ds_90d
+          db: graphite
+          state: absent
+          src: realtime
+          dst: rp_90d
+          ds: 1m
+        - name: cq_ds_360d
+          db: graphite
+          state: absent
+          src: rp_90d
+          dst: rp_360d
+          ds: 20m
+        - name: cq_ds_inf
+          db: graphite
+          state: absent
+          src: rp_90d
+          dst: rp_inf
+          ds: 30m
+      influxdb_rp:
+        - name: realtime
+          db: graphite
+          state: present
+          duration: 30d
+          default: true
+          every: 10s
+        - name: rp_90d
+          db: graphite
+          state: absent
+          duration: 90d
+          default: false
+          every: 1m
+        - name: rp_360d
+          db: graphite
+          state: absent
+          duration: 360d
+          default: false
+          every: 20m
+        - name: rp_inf
+          db: graphite
+          state: absent
+          duration: INF
+          default: false
+          every: 30m
+
     - role: ansible-role-openio-grafana
       grafana_dashboard:
         host_regex: "/.*/"
