@@ -6,6 +6,14 @@ Monitoring stack playbook
 This playbook will deploy the netdata/InfluxDB/grafana stack on an admin machine + N nodes. It comes preconfigured
 with all the necessary retention policies, queries, credentials, and an out of the box dashboard.
 
+> This branch contains some tweaks in order to run on slower systems. Main changes are:
+- Netdata reporting set to 30s
+- Downsampling via CQ is disabled
+- Fsync delay set to 100ms
+- Max queries set to 10
+- Query timeout set to 20s
+- Max compactions limited to 2 cores
+
 
 ### Prerequisites:
 
