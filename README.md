@@ -50,20 +50,32 @@ pip install --upgrade pip
 pip install ansible>=2.4
 ```
 
+---
+
 ### Setup
 
-Clone this repo and install role dependencies:
+Download the latest release of this playbook and install role dependencies:
 
 ```sh
-ansible-galaxy install -r requirements.yml
+export OPENIO_MONITORING_RELEASE="v.1.0.0"
+mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
+curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
+ansible-galaxy install -r requirements.yml --force
 ```
 
-First setup your inventory according to [this example](inventory/testing.ini).
+You will need to **change your inventory file** according to [this example](inventory/testing.ini).
+
+```sh
+cp inventory/testing.ini inventory/current.ini
+# vim inventory/current.ini
+```
+
+---
 
 ### Run
 
 ```sh
-ansible-playbook -i inventory/testing.ini main.yml
+ansible-playbook -i inventory/current.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
