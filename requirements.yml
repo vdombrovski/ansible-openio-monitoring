@@ -1,12 +1,8 @@
-# This is used to manage Ansible role dependences
-# http://docs.ansible.com/galaxy.html#installing-multiple-roles-from-a-file
-# Install with: `ansible-galaxy install -r requirements.yml`
-
 - src: https://github.com/vdombrovski/ansible-role-openio-netdata
-  version: master
+  version: v.1.0.0
 - src: https://github.com/vdombrovski/ansible-role-openio-influxdb
-  version: master
+  version: v.1.0.0
 - src: https://github.com/vdombrovski/ansible-role-openio-grafana
-  version: master
+  version: v.1.0.0
 - src: https://github.com/vdombrovski/ansible-role-openio-diamond
-  version: master
+  version: v.1.0.0
