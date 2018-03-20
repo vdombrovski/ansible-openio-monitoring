@@ -8,5 +8,5 @@
   version: master
 - src: https://github.com/vdombrovski/ansible-role-openio-grafana
   version: master
-- src: https://github.com/open-io/ansible-role-openio-diamond
+- src: https://github.com/vdombrovski/ansible-role-openio-diamond
   version: master

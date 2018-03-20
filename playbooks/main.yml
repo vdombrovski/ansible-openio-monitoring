@@ -12,6 +12,7 @@
       diamond_handlers_graphite_host: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
       diamond_handlers_graphite_port: 2003
       diamond_collectors_openio_namespace: OPENIO
+      diamond_collectors_default_interval: 30
 
 
 - name: Install monitoring on admin machine

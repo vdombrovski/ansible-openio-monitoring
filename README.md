@@ -68,7 +68,8 @@ ansible-playbook -i inventory/testing.ini main.yml
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
 
-> Some metrics still depend on diamond, and will not be displayed. Look in the first sections to see common graphs.
+> In some cases, if you have trouble displaying data on the dashboard (after a reapply), head to:
+- Settings > Make Editable > Variables > $ds_int > Update > Back to dashboard
 
 ### Contribute
 
