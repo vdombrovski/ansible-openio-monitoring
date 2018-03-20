@@ -57,7 +57,7 @@ pip install ansible>=2.4
 Download the latest release of this playbook and install role dependencies:
 
 ```sh
-export OPENIO_MONITORING_RELEASE="v.1.0.0"
+export OPENIO_MONITORING_RELEASE="v.1.0.1"
 mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
 curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
