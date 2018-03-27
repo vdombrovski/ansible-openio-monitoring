@@ -1,5 +1,5 @@
 ---
-- name: Install and configure the monitoring stack
+- name: Install netdata on monitored nodes
   hosts: openio
   become : true
   gather_facts: true
@@ -8,74 +8,40 @@
       netdata_backend_enabled: true
       netdata_backend_destination: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
       netdata_backend_update_every: 30
-    - role: ansible-role-openio-diamond
-      diamond_handlers_graphite_host: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
-      diamond_handlers_graphite_port: 2003
-      diamond_collectors_openio_namespace: OPENIO
-      diamond_collectors_default_interval: 30
+      # Specify hostname of the machine that will hold container.plugin
+      netdata_container_plugin_host: node1
+      netdata_openio_plugins:
+      - name: openio
+        enabled: true
+        opts: "--ns OPENIO"
+      - name: zookeeper
+        enabled: true
+        opts: "--ns OPENIO"
+      - name: container
+        enabled: true
+        every: 120
+        opts: "--threshold 0 --limit 1000"
 
-
-- name: Install monitoring on admin machine
+- name: Install prometheus and grafana on admin machine
   hosts: admin
   become: true
   gather_facts: true
-  roles:
-    - role: ansible-role-openio-influxdb
-      influxdb_conf_max_compactions: 1
-      influxdb_conf_fsync_delay: 100ms
-      influxdb_conf_max_queries: 10
-      influxdb_conf_query_timeout: 20s
-      influxdb_conf_write_timeout: 10s
-      influxdb_ds:
-        - name: cq_ds_90d
-          db: graphite
-          state: absent
-          src: realtime
-          dst: rp_90d
-          ds: 1m
-        - name: cq_ds_360d
-          db: graphite
-          state: absent
-          src: rp_90d
-          dst: rp_360d
-          ds: 20m
-        - name: cq_ds_inf
-          db: graphite
-          state: absent
-          src: rp_90d
-          dst: rp_inf
-          ds: 30m
-      influxdb_rp:
-        - name: realtime
-          db: graphite
-          state: present
-          duration: 30d
-          default: true
-          every: 30s
-        - name: rp_90d
-          db: graphite
-          state: absent
-          duration: 90d
-          default: false
-          every: 1m
-        - name: rp_360d
-          db: graphite
-          state: absent
-          duration: 360d
-          default: false
-          every: 20m
-        - name: rp_inf
-          db: graphite
-          state: present
-          duration: INF
-          default: false
-          every: 30m
-
+    - role: ansible-role-ntp
+    - role: ansible-role-prometheus
+      prometheus_components:
+        - prometheus
+      prometheus_jobs:
+        - name: netdata
+          metrics_path: "/api/v1/allmetrics"
+          # List of targets
+          targets: ["172.17.0.2:19999", "172.17.0.3:19999", "172.17.0.4:19999"]
+      prometheus_recording_rules:
+        - name: netdata_aggregation
+          interval: 10s
+          rules:
+            - record: "aggr:netdata_openio_score:avg_per_service"
+              expr: "avg(label_replace(netdata_openio_score__average, \"dim2\", \"$1\", \"dimension\", \"(.*?)[_].*\")) by (dim2)"
     - role: ansible-role-openio-grafana
-      grafana_dashboard:
-        host_regex: "/.*/"
-        namespace: OPENIO
-        group: openio
       grafana_auth:
         user: admin
         password: admin
