@@ -3,16 +3,7 @@ Monitoring stack playbook
 
 ### Description
 
-This playbook will deploy the netdata/InfluxDB/grafana stack on an admin machine + N nodes. It comes preconfigured
-with all the necessary retention policies, queries, credentials, and an out of the box dashboard.
-
-> This branch contains some tweaks in order to run on slower systems. Main changes are:
-- Netdata reporting set to 30s
-- Downsampling via CQ is disabled
-- Fsync delay set to 100ms
-- Max queries set to 10
-- Query timeout set to 20s
-- Max compactions limited to 2 cores
+This playbook will deploy the Netdata/Prometheus/Grafana stack on an admin machine + N nodes. It comes preconfigured with an out of the box dashboard.
 
 
 ### Prerequisites:
@@ -57,7 +48,7 @@ pip install ansible>=2.4
 Download the latest release of this playbook and install role dependencies:
 
 ```sh
-export OPENIO_MONITORING_RELEASE="v.1.0.2"
+export OPENIO_MONITORING_RELEASE="prometheus"
 mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
 curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
@@ -79,9 +70,6 @@ ansible-playbook -i inventory/current.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
-
-> In some cases, if you have trouble displaying data on the dashboard (after a reapply), head to:
-- Settings > Make Editable > Variables > $ds_int > Update > Back to dashboard
 
 ### Contribute
 
