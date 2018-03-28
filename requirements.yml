@@ -4,5 +4,5 @@
   version: prometheus
 - src: https://github.com/vdombrovski/ansible-role-openio-grafana
   version: prometheus
-- src: https://github.com/shelleg/ansible-role-ntp
+- src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
