@@ -26,6 +26,7 @@
   hosts: admin
   become: true
   gather_facts: true
+  roles:
     - role: ansible-role-ntp
     - role: ansible-role-prometheus
       prometheus_components:
