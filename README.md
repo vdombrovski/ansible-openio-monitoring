@@ -1,6 +1,8 @@
 Monitoring stack playbook
 ---
 
+[![Build Status](https://travis-ci.org/vdombrovski/ansible-openio-monitoring.svg?branch=master)](https://travis-ci.org/vdombrovski/ansible-openio-monitoring)
+
 ### Description
 
 This playbook will deploy the Netdata/Prometheus/Grafana stack on an admin machine + N nodes. It comes preconfigured with an out of the box dashboard.
@@ -70,6 +72,7 @@ ansible-playbook -i inventory/current.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
+
 
 ### Contribute
 
