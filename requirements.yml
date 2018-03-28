@@ -1,8 +1,6 @@
+- src: https://github.com/vdombrovski/ansible-role-prometheus
+  version: master
 - src: https://github.com/vdombrovski/ansible-role-openio-netdata
-  version: v.1.0.0
-- src: https://github.com/vdombrovski/ansible-role-openio-influxdb
-  version: v.1.0.0
+  version: prometheus
 - src: https://github.com/vdombrovski/ansible-role-openio-grafana
-  version: v.1.0.2
-- src: https://github.com/vdombrovski/ansible-role-openio-diamond
-  version: v.1.0.0
+  version: prometheus
