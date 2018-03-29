@@ -1,8 +1,8 @@
 - src: https://github.com/vdombrovski/ansible-role-prometheus
-  version: master
+  version: v3.0.0
 - src: https://github.com/vdombrovski/ansible-role-openio-netdata
-  version: prometheus
+  version: v1.1.0
 - src: https://github.com/vdombrovski/ansible-role-openio-grafana
-  version: prometheus
+  version: v2.0.0
 - src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
