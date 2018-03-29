@@ -35,7 +35,9 @@
         - name: netdata
           metrics_path: "/api/v1/allmetrics"
           # List of targets
-          targets: ["172.17.0.2:19999", "172.17.0.3:19999", "172.17.0.4:19999"]
+          targets: "[{% for host in groups['openio'] -%}
+                         \"{{ hostvars[host]['ansible_host']+':19999' }}\"{% if not loop.last %},{% endif %}
+                   {%- endfor %}]"
       prometheus_recording_rules:
         - name: netdata_aggregation
           interval: 10s
