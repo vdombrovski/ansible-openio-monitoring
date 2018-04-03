@@ -1,50 +1,59 @@
 ---
 - name: Install netdata on monitored nodes
   hosts: openio
-  become : true
+  become: true
   gather_facts: true
   roles:
     - role: ansible-role-openio-netdata
-      netdata_backend_enabled: true
-      netdata_backend_destination: "{{ hostvars[ groups['admin'][0] ]['ansible_host'] }}"
-      netdata_backend_update_every: 30
-      # Specify hostname of the machine that will hold container.plugin
-      netdata_container_plugin_host: node1
+      netdata_openio_namespaces: "OPENIO"
       netdata_openio_plugins:
-      - name: openio
-        enabled: true
-        opts: "--ns OPENIO"
-      - name: zookeeper
-        enabled: true
-        opts: "--ns OPENIO"
-      - name: container
-        enabled: true
-        every: 120
-        opts: "--threshold 0 --limit 1000"
+        - name: openio
+          enabled: true
+          every: 10
+          opts: ""
+        - name: zookeeper
+          enabled: true
+          every: 10
+          opts: ""
+        - name: container
+          enabled: true
+          every: 120
+          opts: "--threshold 0 --limit 1000"
+      netdata_backend_enabled: true
+      netdata_openio_plugins_version: "0.2.13"
+      netdata_container_plugin_host: "{{ hostvars[groups[ansible_play_hosts][0]]['ansible_hostname'] }}"
 
 - name: Install prometheus and grafana on admin machine
   hosts: admin
   become: true
   gather_facts: true
+  vars:
+    openio_monitoring_netdata_group: openio
+    openio_monitoring_netdata_port: 19999
+    openio_monitoring_iface: eth0
   roles:
     - role: ansible-role-ntp
     - role: ansible-role-prometheus
-      prometheus_components:
-        - prometheus
-      prometheus_jobs:
-        - name: netdata
-          metrics_path: "/api/v1/allmetrics"
-          # List of targets
-          targets: "[{% for host in groups['openio'] -%}
-                         \"{{ hostvars[host]['ansible_host']+':19999' }}\"{% if not loop.last %},{% endif %}
-                   {%- endfor %}]"
+      prometheus_storage_local_path: "/var/lib/prometheus/data"
       prometheus_recording_rules:
         - name: netdata_aggregation
           interval: 10s
           rules:
             - record: "aggr:netdata_openio_score:avg_per_service"
-              expr: "avg(label_replace(netdata_openio_score__average, \"dim2\", \"$1\", \"dimension\", \"(.*?)[_].*\")) by (dim2)"
+              expr: "avg(label_replace(netdata_openio_score__average,\
+                     \"dim2\", \"$1\", \"dimension\", \"(.*?)[_].*\")) by (dim2)"
+      prometheus_jobs:
+        - name: netdata
+          metrics_path: "/api/v1/allmetrics"
+          scrape_interval: 10s
+          targets: "[{% for host in groups[openio_monitoring_netdata_group] -%}
+                         \"{{ hostvars[host]['ansible_' + openio_monitoring_iface]['ipv4']['address'] +
+                              ':' + openio_monitoring_netdata_port }}\"{% if not loop.last %},{% endif %}
+                   {%- endfor %}]"
+      prometheus_components:
+        - prometheus
     - role: ansible-role-openio-grafana
       grafana_auth:
         user: admin
         password: admin
+...
