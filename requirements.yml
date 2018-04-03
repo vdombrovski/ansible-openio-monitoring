@@ -1,3 +1,4 @@
+---
 - src: https://github.com/vdombrovski/ansible-role-prometheus
   version: v3.0.0
 - src: https://github.com/vdombrovski/ansible-role-openio-netdata
@@ -6,3 +7,4 @@
   version: v2.0.0
 - src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
+...
