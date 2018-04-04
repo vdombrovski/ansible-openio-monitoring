@@ -11,7 +11,7 @@ This procedure will:
 Prerequisites:
 ---
 
-- Ansible 2.4 installed on an admin machine
+- Ansible ~2.4 installed on an admin machine
 - Python2 installed on all nodes
 - Inventory file matching the following:
     - it is located at `$INVENTORY_FILE_PATH`
@@ -29,13 +29,14 @@ Prerequisites:
 Setup:
 ---
 
+1. Download and install requirements
 ```sh
 mkdir ansible-openio-monitoring && cd ansible-openio-monitoring
-curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/netdata.tar.gz" | tar xz --strip-components=1
+curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/2.1.1.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml
 ```
 
-3. Now generate an rc file, **REPLACE** the corresponding pieces of information with the ones obtained from the prerequisites:
+2. Generate an rc file, **REPLACE** the corresponding pieces of information with the ones obtained from the prerequisites:
 ```sh
 cat << EOF > .varsrc
 export MONITORED_HOST_GROUP=openio
@@ -47,22 +48,20 @@ export MONITORED_HOST_IFACE=eth0
 EOF
 ```
 
-4. Generate the playbook:
+3. Generate the playbook using the rc file:
 ```sh
 source .varsrc
 envsubst < "playbooks/main.yml.tpl" > "playbooks/main.yml"
 ```
 
-5. Play the playbook
-
+4. Play the playbook
 ```sh
 ansible-playbook -i $INVENTORY_FILE_PATH main.yml
 ```
 
-6. Get the generated job configuration by looking into the generated scrape file:
-
-*Example:*
+5. Get the generated job configuration by looking into the generated scrape file:
 ```sh
+# Example output
 $ cat $SCRAPE_FILE_DESTINATION
 scrape_configs:
   - job_name: netdata_openio
@@ -75,4 +74,4 @@ scrape_configs:
     - targets: ["10.0.2.161:19999","10.0.2.162:19999","10.0.2.163:19999"]
 ```
 
-7. Add the job in `/etc/prometheus/prometheus.yml` in the `scrape_configs` section, then reload prometheus.
+6. Add the job in `/etc/prometheus/prometheus.yml` in the `scrape_configs` section, then reload prometheus.
