@@ -1,0 +1,12 @@
+scrape_configs:
+  - job_name: netdata_openio
+    scrape_interval: 10s
+    metrics_path: '/api/v1/allmetrics'
+    params:
+      format: [prometheus_all_hosts]
+    honor_labels: True
+    static_configs:
+    - targets: [{% for host in groups[scrape_monitored_group] -%}
+                         "{{ hostvars[host]['ansible_' + scrape_net_iface]['ipv4']['address'] +
+                              ':' + (scrape_netdata_port | string) }}"{% if not loop.last %},{% endif %}
+                   {%- endfor %}]
