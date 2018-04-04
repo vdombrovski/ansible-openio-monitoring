@@ -29,10 +29,9 @@ Prerequisites:
 Setup:
 ---
 
-1. Download the tar.gz: [link]
-2. Type in:
 ```sh
-tar xf ansible-openio-monitoring.tar && cd ansible-openio-monitoring
+mkdir ansible-openio-monitoring && cd ansible-openio-monitoring
+curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/netdata.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml
 ```
 
