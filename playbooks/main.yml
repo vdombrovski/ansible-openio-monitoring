@@ -21,7 +21,7 @@
           opts: "--threshold 0 --limit 1000"
       netdata_backend_enabled: true
       netdata_openio_plugins_version: "0.2.13"
-      netdata_container_plugin_host: "{{ hostvars[groups[ansible_play_hosts][0]]['ansible_hostname'] }}"
+      netdata_container_plugin_host: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
 
 - name: Install prometheus and grafana on admin machine
   hosts: admin
@@ -48,7 +48,7 @@
           scrape_interval: 10s
           targets: "[{% for host in groups[openio_monitoring_netdata_group] -%}
                          \"{{ hostvars[host]['ansible_' + openio_monitoring_iface]['ipv4']['address'] +
-                              ':' + openio_monitoring_netdata_port }}\"{% if not loop.last %},{% endif %}
+                              ':' + (openio_monitoring_netdata_port | string) }}\"{% if not loop.last %},{% endif %}
                    {%- endfor %}]"
       prometheus_components:
         - prometheus
