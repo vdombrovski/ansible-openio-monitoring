@@ -6,6 +6,7 @@
   roles:
     - role: ansible-role-openio-netdata
       netdata_openio_namespaces: "OPENIO"
+      netdata_default_port: 19999
       netdata_openio_plugins:
         - name: openio
           enabled: true

@@ -50,7 +50,7 @@ pip install ansible>=2.4
 Download the latest release of this playbook and install role dependencies:
 
 ```sh
-export OPENIO_MONITORING_RELEASE="v2.0.0"
+export OPENIO_MONITORING_RELEASE="v2.0.2"
 mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
 curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
@@ -65,6 +65,28 @@ cp inventory/testing.ini inventory/current.ini
 
 ---
 
+### Configure
+
+Below you will find a description of the variables of the playbook
+
+| Variable name                       | Description                                                  | Type   |
+| ----------------------------------- | ------------------------------------------------------------ | ------ |
+| **netdata_openio_namespaces**       | List of namespaces separated by comma                        | string |
+| **netdata_default_port**            | Port on which netdata listens                                | string |
+| **netdata_openio_plugins**          | List of enabled openio plugins with their config             | list   |
+| netdata_openio_plugins_version      | OpenIO plugins version (don't alter; left for compatibility) | string |
+| netdata_backend_enabled             | Netdata backend (don't alter; left for compatibility)        | string |
+| **openio_monitoring_netdata_group** | Inventory group of monitored nodes                           | string |
+| **openio_monitoring_netdata_port**  | Port on which netdata listens (same as netdata_default_port) | int    |
+| **openio_monitoring_iface**         | Network interface on which prometheus will pull metrics      | string |
+| **prometheus_storage_local_path**   | Path on which prometheus will store its metrics              | string |
+| prometheus_recording_rules          | Custom aggregation rules to be performed by prometheus       | list   |
+| prometheus_jobs                     | List of jobs performed by prometheus                         | list   |
+| prometheus_components               | Components to deploy; left for compatibility                 | string |
+| **grafana_auth**                    | Login/password for grafana                                   | dict   |
+
+Before running the playbook, make sure that you have checked that all the fields marked in bold are correct.
+
 ### Run
 
 ```sh
@@ -72,7 +94,6 @@ ansible-playbook -i inventory/current.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `OPENIO`.
-
 
 ### Contribute
 
