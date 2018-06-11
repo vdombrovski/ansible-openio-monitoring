@@ -12,6 +12,7 @@ This playbook will deploy the Netdata/Prometheus/Grafana stack on an admin machi
 
 - Ubuntu Xenial / CentOS 7
 - Ansible 2.4 (see below for install on Ubuntu)
+- python-netaddr package on admin machine
 
 ### Ansible 2.4 install
 
@@ -22,14 +23,14 @@ apt update
 apt install -y software-properties-common
 apt-add-repository -y ppa:ansible/ansible
 apt update
-apt install -y ansible
+apt install -y ansible python-netaddr
 ```
 
 ---
 
 > **CentOS 7**
 ```sh
-sudo yum install -y ansible
+sudo yum install -y ansible python-netaddr
 ```
 
 ---
@@ -50,7 +51,7 @@ pip install ansible>=2.4
 Download the latest release of this playbook and install role dependencies:
 
 ```sh
-export OPENIO_MONITORING_RELEASE="v2.0.3"
+export OPENIO_MONITORING_RELEASE="2.0.4"
 mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
 curl -sL "https://github.com/vdombrovski/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force

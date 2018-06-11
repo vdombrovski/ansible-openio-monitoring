@@ -1,12 +1,12 @@
 ---
 - src: https://github.com/open-io/ansible-role-repo-openio-sds
-  version: 0922a46c1b2dcf779111057f960f481965b6c960
-- src: https://github.com/vdombrovski/ansible-role-prometheus
+  version: 4bded6650dd6801743bb7fc2deae336515264e4c
+- src: https://github.com/open-io/ansible-role-prometheus
   version: v3.0.1
-- src: https://github.com/vdombrovski/ansible-role-openio-netdata
-  version: v1.1.3
-- src: https://github.com/vdombrovski/ansible-role-openio-grafana
-  version: v2.0.2
+- src: https://github.com/open-io/ansible-role-openio-netdata
+  version: 1.1.6
+- src: https://github.com/open-io/ansible-role-openio-grafana
+  version: 2.0.3
 - src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
 ...
