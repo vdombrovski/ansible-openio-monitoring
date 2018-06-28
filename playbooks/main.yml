@@ -5,9 +5,11 @@
   gather_facts: true
   roles:
     - role: ansible-role-openio-netdata
-      netdata_openio_namespaces: "OPENIO"
-      netdata_default_port: 19999
-      netdata_openio_plugins:
+      openio_netdata_namespace: "OPENIO"
+      openio_netdata_inventory_groupname: openio
+      openio_netdata_bind_address: 0.0.0.0
+      openio_netdata_bind_port: 19999
+      openio_netdata_oio_plugins:
         - name: openio
           enabled: true
           every: 10
@@ -20,9 +22,7 @@
           enabled: true
           every: 120
           opts: "--threshold 0 --limit 1000"
-      netdata_backend_enabled: true
-      netdata_openio_plugins_version: "0.2.13"
-      netdata_container_plugin_host: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
+      openio_netdata_oio_container_plugin_target: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
 
 - name: Install prometheus and grafana on admin machine
   hosts: admin
