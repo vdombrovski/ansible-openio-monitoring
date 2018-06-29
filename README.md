@@ -81,7 +81,6 @@ Below you will find a description of the variables of the playbook
 | **openio_monitoring_netdata_port**  | Port on which netdata listens (same as netdata_default_port) | int    |
 | **openio_monitoring_iface**         | Network interface on which prometheus will pull metrics      | string |
 | **prometheus_storage_local_path**   | Path on which prometheus will store its metrics              | string |
-| prometheus_recording_rules          | Custom aggregation rules to be performed by prometheus       | list   |
 | prometheus_jobs                     | List of jobs performed by prometheus                         | list   |
 | prometheus_components               | Components to deploy; left for compatibility                 | string |
 | **grafana_auth**                    | Login/password for grafana                                   | dict   |
