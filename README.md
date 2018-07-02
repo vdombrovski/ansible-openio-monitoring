@@ -70,20 +70,20 @@ cp inventory/testing.ini inventory/current.ini
 
 Below you will find a description of the variables of the playbook
 
-| Variable name                       | Description                                                  | Type   |
-| ----------------------------------- | ------------------------------------------------------------ | ------ |
-| **netdata_openio_namespaces**       | List of namespaces separated by comma                        | string |
-| **netdata_default_port**            | Port on which netdata listens                                | string |
-| **netdata_openio_plugins**          | List of enabled openio plugins with their config             | list   |
-| netdata_openio_plugins_version      | OpenIO plugins version (don't alter; left for compatibility) | string |
-| netdata_backend_enabled             | Netdata backend (don't alter; left for compatibility)        | string |
-| **openio_monitoring_netdata_group** | Inventory group of monitored nodes                           | string |
-| **openio_monitoring_netdata_port**  | Port on which netdata listens (same as netdata_default_port) | int    |
-| **openio_monitoring_iface**         | Network interface on which prometheus will pull metrics      | string |
-| **prometheus_storage_local_path**   | Path on which prometheus will store its metrics              | string |
-| prometheus_jobs                     | List of jobs performed by prometheus                         | list   |
-| prometheus_components               | Components to deploy; left for compatibility                 | string |
-| **grafana_auth**                    | Login/password for grafana                                   | dict   |
+| Variable name                                  | Description                                                      | Type   |
+| ---------------------------------------------- | ---------------------------------------------------------------- | ------ |
+| **openio_netdata_namespace**                   | List of namespaces separated by comma                            | string |
+| **openio_netdata_oio_container_plugin_target** | Host on which to install listing collector                       | string |
+| **openio_netdata_bind_address**                | Address on which netdata listens                                 | string |
+| **openio_netdata_bind_port**                   | Port on which netdata listens                                    | string |
+| **openio_netdata_oio_plugins**                 | List of enabled openio plugins with their config                 | list   |
+| **openio_monitoring_netdata_group**            | Inventory group of monitored nodes                               | string |
+| **openio_monitoring_netdata_port**             | Port on which netdata listens (same as openio_netdata_bind_port) | int    |
+| **openio_monitoring_iface**                    | Network interface on which prometheus will pull metrics          | string |
+| **prometheus_storage_local_path**              | Path on which prometheus will store its metrics                  | string |
+| prometheus_jobs                                | List of jobs performed by prometheus                             | list   |
+| prometheus_components                          | Components to deploy; left for compatibility                     | string |
+| **grafana_auth**                               | Login/password for grafana                                       | dict   |
 
 Before running the playbook, make sure that you have checked that all the fields marked in bold are correct.
 
