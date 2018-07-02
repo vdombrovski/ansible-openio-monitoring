@@ -5,7 +5,6 @@
   gather_facts: true
   roles:
     - role: ansible-role-openio-repository
-      openio_repository_mirror_host: mirror2.openio.io
 
 - name: Install netdata on monitored nodes
   hosts: openio
