@@ -28,8 +28,8 @@
           opts: ""
         - name: container
           enabled: true
-          every: 120
-          opts: "--threshold 0 --limit 1000"
+          every: 10
+          opts: "--fast"
       openio_netdata_oio_container_plugin_target: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
 
 - name: Install prometheus and grafana on admin machine
