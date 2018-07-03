@@ -6,7 +6,7 @@
 - src: https://github.com/open-io/ansible-role-openio-netdata
   version: 1.1.7
 - src: https://github.com/open-io/ansible-role-openio-grafana
-  version: 2.0.5
+  version: 2.0.6
 - src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
 ...
