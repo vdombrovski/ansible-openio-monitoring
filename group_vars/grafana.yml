@@ -1,0 +1,6 @@
+---
+# Grafana group vars
+grafana_auth:
+  user: admin
+  password: admin
+...

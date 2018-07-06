@@ -1,17 +1,22 @@
 ---
 - name: Install repository
+<<<<<<< HEAD
   hosts: openio
+=======
+  hosts: netdata
+>>>>>>> WIP: Rework for alert support
   become: true
   gather_facts: true
   roles:
     - role: ansible-role-openio-repository
 
 - name: Install netdata on monitored nodes
-  hosts: openio
+  hosts: netdata
   become: true
   gather_facts: true
   roles:
     - role: ansible-role-openio-netdata
+<<<<<<< HEAD
       openio_netdata_namespace: "OPENIO"
       openio_netdata_bind_address: 0.0.0.0
       openio_netdata_bind_port: 19999
@@ -29,17 +34,37 @@
           every: 10
           opts: "--fast"
       openio_netdata_oio_container_plugin_target: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
+=======
+>>>>>>> WIP: Rework for alert support
 
-- name: Install prometheus and grafana on admin machine
-  hosts: admin
+- name: Install blackbox
+  hosts: blackbox
   become: true
   gather_facts: true
-  vars:
-    openio_monitoring_netdata_group: openio
-    openio_monitoring_netdata_port: 19999
-    openio_monitoring_iface: eth0
+  roles:
+    - ansible-blackbox-exporter
+
+- name: Install prometheus
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: ansible-role-openio-prometheus
+
+- name: Install alertmanager
+  hosts: alertmanager
+  become: true
+  gather_facts: true
+  roles:
+    - role: cloudalchemy.alertmanager
+
+- name: Install NTP server
+  hosts: prometheus
+  become: true
+  gather_facts: true
   roles:
     - role: ansible-role-ntp
+<<<<<<< HEAD
     - role: ansible-role-prometheus
       prometheus_storage_local_path: "/var/lib/prometheus/data"
       prometheus_jobs:
@@ -52,8 +77,13 @@
                    {%- endfor %}]"
       prometheus_components:
         - prometheus
+=======
+
+- name: Install grafana
+  hosts: grafana
+  become: true
+  gather_facts: true
+  roles:
+>>>>>>> WIP: Rework for alert support
     - role: ansible-role-openio-grafana
-      grafana_auth:
-        user: admin
-        password: admin
 ...
