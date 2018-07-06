@@ -1,0 +1,20 @@
+---
+# Netdata group vars
+openio_netdata_namespace: "OPENIO"
+openio_netdata_bind_address: 0.0.0.0
+openio_netdata_bind_port: 19999
+openio_netdata_oio_container_plugin_target: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
+openio_netdata_oio_plugins:
+  - name: openio
+    enabled: true
+    every: 10
+    opts: ""
+  - name: zookeeper
+    enabled: true
+    every: 10
+    opts: ""
+  - name: container
+    enabled: true
+    every: 10
+    opts: "--fast"
+...

@@ -1,0 +1,67 @@
+---
+# Blackbox group vars
+blackbox_exporter_web_listen_address: 0.0.0.0:9115
+blackbox_exporter_configuration_modules:
+  tcpcheck: { prober: tcp, timeout: 5s }
+  icmpcheck: { prober: icmp, timeout: 5s, icmp: { preferred_ip_protocol: "ip4" } }
+  oioping:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        # REQ FORMAT: \x00\x00\x0000.\x80 00000000000000000000000000000000\x81\x08REQ_PING\xa3\x0
+        - send: !!binary AAAAMDAugCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMIEIUkVRX1BJTkejAAo=
+        - expect: ".*OK.*"
+  meta0:
+    prober: http
+    timeout: 5s
+  meta1:
+    prober: http
+    timeout: 5s
+  meta2:
+    prober: http
+    timeout: 5s
+  rawx:
+    prober: http
+    timeout: 5s
+  oioproxy:
+    prober: http
+    timeout: 5s
+  account:
+    prober: http
+    timeout: 5s
+  conscience:
+    prober: http
+    timeout: 5s
+  zookeeper:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "ruok"
+        - expect: "imok"
+  redis:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "PING"
+        - expect: "PONG"
+  redissentinel:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "PING"
+        - expect: "PONG"
+  beanstalkd:
+    prober: tcp
+    timeout: 5s
+    tcp:
+      query_response:
+        - send: "stats\r\n"
+        - expect: "OK.*"
+  rdir:
+    prober: http
+    timeout: 5s
+...
