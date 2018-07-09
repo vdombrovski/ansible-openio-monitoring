@@ -1,5 +1,7 @@
 ---
-# Blackbox group vars
+# BASIC OPTIONS
+
+# ADVANCED OPTIONS
 blackbox_exporter_web_listen_address: 0.0.0.0:9115
 blackbox_exporter_configuration_modules:
   tcpcheck: { prober: tcp, timeout: 5s }
