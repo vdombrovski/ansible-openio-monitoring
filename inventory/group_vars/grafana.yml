@@ -1,6 +1,9 @@
 ---
-# Grafana group vars
+# BASIC OPTIONS
 grafana_auth:
   user: admin
   password: admin
+
+# ADVANCED OPTIONS
+grafana_theme: light
 ...

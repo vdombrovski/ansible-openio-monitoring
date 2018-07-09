@@ -57,10 +57,10 @@ curl -sL "https://github.com/open-io/ansible-openio-monitoring/archive/$OPENIO_M
 ansible-galaxy install -r requirements.yml --force
 ```
 
-You will need to **change your inventory file** according to [this example](inventory/testing.ini).
+You will need to **change your inventory file** according to [this example](inventory/default.ini).
 
 ```sh
-cp inventory/testing.ini inventory/current.ini
+cp inventory/default.ini inventory/current.ini
 # vim inventory/current.ini
 ```
 
