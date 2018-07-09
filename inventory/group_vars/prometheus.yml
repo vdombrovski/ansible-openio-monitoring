@@ -3,6 +3,7 @@
 prometheus_blackbox_group: blackbox
 prometheus_admin_group: admin
 prometheus_netdata_group: netdata
+prometheus_alertmanager_group: alertmanager
 
 prometheus_listen_ip: 0.0.0.0
 prometheus_listen_port: 9090
@@ -46,7 +47,10 @@ prometheus_alert_instance_default_high: 34
 prometheus_alert_instance_levels_high: {}
 
 # Alert forwarding
-prometheus_alertmanager_enabled: false
+prometheus_alertmanager_enabled: true
+prometheus_alertmanager_iface: eth0
+prometheus_alertmanager_port: 9093
 prometheus_alertmanager_interval: 10s
-prometheus_alertmanager_targets: []
+prometheus_alertmanager_host: "{{ hostvars[groups[prometheus_netdata_group][0]]\
+  ['ansible_' + prometheus_alertmanager_iface]['ipv4']['address'] }}"
 ...
