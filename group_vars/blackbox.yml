@@ -27,6 +27,11 @@ blackbox_exporter_configuration_modules:
   oioproxy:
     prober: http
     timeout: 5s
+  oioswift:
+    prober: http
+    timeout: 5s
+    fail_if_not_matches_regexp:
+      - .*swift3.*
   account:
     prober: http
     timeout: 5s
