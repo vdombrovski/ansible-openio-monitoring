@@ -6,7 +6,6 @@ prometheus_default_node_iface: "{{ ansible_default_ipv4.alias }}"
 
 prometheus_netdata_iface: "{{ prometheus_default_node_iface }}"
 prometheus_blackbox_iface: "{{ prometheus_default_node_iface }}"
-prometheus_blackbox_admin_iface: "{{ prometheus_default_admin_iface }}"
 
 prometheus_default_collection_interval: 10s
 prometheus_blackbox_targets_regenerate: true
