@@ -38,7 +38,7 @@
 >>>>>>> WIP: Rework for alert support
 
 - name: Install blackbox
-  hosts: blackbox
+  hosts: blackbox:admin
   become: true
   gather_facts: true
   roles:
