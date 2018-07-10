@@ -1,7 +1,8 @@
 ---
 alertmanager_db_dir: /var/lib/alertmanager
 alertmanager_port: 9093
-alertmanager_web_listen_address: "{{ hostvars['ansible_' + prometheus_default_admin_iface]['ipv4']['address'] + \
-  ':' + alertmanager_port | string}}"
+alertmanager_web_listen_address: "\
+  {{ hostvars[inventory_hostname]['ansible_' + prometheus_default_admin_iface]['ipv4']['address'] + \
+  ':' + alertmanager_port | string }}"
 alertmanager_web_external_url: "{{ 'http://' + alertmanager_web_listen_address }}"
 ...

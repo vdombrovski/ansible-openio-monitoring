@@ -1,5 +1,6 @@
 ---
-openio_netdata_bind_address: "{{ hostvars['ansible_' + prometheus_default_admin_iface]['ipv4']['address'] }}"
+openio_netdata_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + \
+  prometheus_default_node_iface]['ipv4']['address'] }}"
 openio_netdata_bind_port: 19999
 openio_netdata_oio_plugins:
   - name: openio
