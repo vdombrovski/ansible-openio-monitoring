@@ -1,0 +1,84 @@
+---
+- name: Uninstall netdata
+  hosts: netdata
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Stop service
+      ignore_errors: true
+      service:
+        name: netdata
+        state: stopped
+    - name: Remove package
+      package:
+        name: netdata
+        state: absent
+
+- name: Uninstall blackbox
+  hosts: netdata
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Stop service
+      ignore_errors: true
+      service:
+        name: blackbox_exporter
+        state: stopped
+    - name: Remove package
+      package:
+        name: blackbox_exporter
+        state: absent
+
+- name: Uninstall grafana
+  hosts: grafana
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Stop service
+      ignore_errors: true
+      service:
+        name: grafana-server
+        state: stopped
+    - name: Remove package
+      package:
+        name: grafana
+        state: absent
+    - name: Clean config path
+      file:
+        state: absent
+        path: "/etc/grafana"
+
+- name: Uninstall prometheus
+  hosts: prometheus
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Stop service
+      ignore_errors: true
+      service:
+        name: prometheus
+        state: stopped
+    - name: Remove package
+      package:
+        name: prometheus
+        state: absent
+    - name: Clean config path
+      file:
+        state: absent
+        path: "/etc/prometheus"
+
+- name: Uninstall alertmanager
+  hosts: alertmanager
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Stop service
+      ignore_errors: true
+      service:
+        name: alertmanager
+        state: stopped
+    - name: Remove package
+      package:
+        name: alertmanager
+        state: absent
+...
