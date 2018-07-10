@@ -1,13 +1,18 @@
 ---
 prometheus_storage_path: /var/lib/prometheus/data
 
-prometheus_default_admin_iface: “{{ ansible_default_ipv4.alias }}”
-prometheus_default_node_iface: “{{ ansible_default_ipv4.alias }}”
+prometheus_default_admin_iface: "{{ ansible_default_ipv4.alias }}"
+prometheus_default_node_iface: "{{ ansible_default_ipv4.alias }}"
+
+prometheus_netdata_iface: "{{ prometheus_default_node_iface }}"
+prometheus_blackbox_iface: "{{ prometheus_default_node_iface }}"
+prometheus_blackbox_admin_iface: "{{ prometheus_default_admin_iface }}"
+
 prometheus_default_collection_interval: 10s
 prometheus_blackbox_targets_regenerate: true
 
 openio_netdata_namespace: "OPENIO"
-openio_netdata_oio_container_plugin_target: "{{ hostvars[ansible_play_hosts[0]]['ansible_hostname'] }}"
+openio_netdata_oio_container_plugin_target: "{{ hostvars[groups['openio'][0]]['ansible_hostname'] }}"
 
 grafana_auth:
   user: admin
