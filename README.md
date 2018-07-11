@@ -51,7 +51,7 @@ pip install ansible>=2.4
 Download the latest release of this playbook and install role dependencies:
 
 ```sh
-export OPENIO_MONITORING_RELEASE="2.0.6"
+export OPENIO_MONITORING_RELEASE="2.2.0"
 mkdir -p ~/ansible-openio-monitoring && cd ~/ansible-openio-monitoring
 curl -sL "https://github.com/open-io/ansible-openio-monitoring/archive/$OPENIO_MONITORING_RELEASE.tar.gz" | tar xz --strip-components=1
 ansible-galaxy install -r requirements.yml --force
@@ -63,6 +63,18 @@ You will need to **change your inventory file** according to [this example](inve
 cp inventory/default.ini inventory/current.ini
 # vim inventory/current.ini
 ```
+
+### Inventory
+
+The inventory is organised by components and by node groups
+
+- **openio**: all monitored nodes
+- **admin** : admin node
+- **prometheus**: node running prometheus (admin)
+- **grafana**: node running grafana (admin)
+- **alertmanager**: node running alertmanager (admin)
+- **blackbox**: all nodes running blackbox_exporter (admin + monitored nodes)
+- **netdata**: all nodes running netdata (monitored nodes)
 
 ---
 
@@ -127,7 +139,7 @@ ansible-playbook -i inventory/current.ini playbooks/uninstall.yml
 
 This section describes common troubleshooting procedures, in cases where the playbook has been successfully executed, and there are still problems with Grafana dashboards and/or other components.
 
-1. Check that prometheus is running
+**1. Check that prometheus is running:**
 
 ```
 ansible -bi inventory/current.ini admin -m shell -a "systemctl status prometheus"
@@ -140,7 +152,7 @@ Head to `http://[ADMIN_IP]:9090/targets` and verify that:
 - All targets are blue
 - There is a netdata target
 
-2. Check that netdata and blackbox are running:
+**2. Check that netdata and blackbox are running:**
 
 ```sh
 ansible -bi inventory/current.ini openio -m shell -a "systemctl status netdata blackbox_exporter"
@@ -148,7 +160,7 @@ ansible -bi inventory/current.ini openio -m shell -a "systemctl status netdata b
 
 > Fix: start services `ansible -bi inventory/current.ini openio -m shell -a "systemctl start netdata blackbox_exporter"`
 
-3. Check that netdata plugins are running
+**3. Check that netdata plugins are running:**
 
 ```sh
 ansible -bi inventory/current.ini openio -m shell -a "ps aux | grep .plugin | grep -v grep"
