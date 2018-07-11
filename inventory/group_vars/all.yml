@@ -4,9 +4,6 @@ prometheus_storage_path: /var/lib/prometheus/data
 prometheus_default_admin_iface: "{{ ansible_default_ipv4.alias }}"
 prometheus_default_node_iface: "{{ ansible_default_ipv4.alias }}"
 
-prometheus_netdata_iface: "{{ prometheus_default_node_iface }}"
-prometheus_blackbox_iface: "{{ prometheus_default_node_iface }}"
-
 prometheus_default_collection_interval: 10s
 prometheus_blackbox_targets_regenerate: true
 
@@ -46,4 +43,8 @@ alertmanager_child_routes:
     group_wait: 30s
     match_re:
       severity: medium|high
+
+
+prometheus_netdata_iface: "{{ prometheus_default_node_iface }}"
+prometheus_blackbox_iface: "{{ prometheus_default_node_iface }}"
 ...
