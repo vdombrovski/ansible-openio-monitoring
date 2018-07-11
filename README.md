@@ -64,6 +64,8 @@ cp inventory/default.ini inventory/current.ini
 # vim inventory/current.ini
 ```
 
+---
+
 ### Inventory
 
 The inventory is organised by components and by node groups
@@ -94,6 +96,11 @@ For an easy start, modify *inventory/group_vars/all.yml*. The configuration opti
 
 | Option                                     | Description                                                        | Type    |
 | ------------------------------------------ | ------------------------------------------------------------------ | ------- |
+| alertmanager_receivers*                    | Alertmanager Receiver configuration                                | List    |
+| alertmanager_inhibit_rules*                | Alertmanager inhibition rules configuration                        | List    |
+| alertmanager_route*                        | Alertmanager main route configuration                              | Dict    |
+| alertmanager_child_routes*                 | Alertmanager secondary routes configuration                        | List    |
+| grafana_auth                               | Grafana user and password                                          | Dict    |
 | openio_netdata_namespace                   | Namespace to monitor                                               | String  |
 | openio_netdata_oio_container_plugin_target | Hostname of a node containing a redis used for the account service | String  |
 | prometheus_storage_path                    | Path where metrics are stored                                      | String  |
@@ -101,16 +108,12 @@ For an easy start, modify *inventory/group_vars/all.yml*. The configuration opti
 | prometheus_default_node_iface              | Network interface of the monitored nodes                           | String  |
 | prometheus_default_collection_interval     | Collection interval                                                | String  |
 | prometheus_blackbox_targets_regenerate**   | Regenerate targets for prometheus health collection                | Boolean |
-| alertmanager_receivers*                    | Alertmanager Receiver configuration                                | List    |
-| alertmanager_inhibit_rules*                | Alertmanager inhibition rules configuration                        | List    |
-| alertmanager_route*                        | Alertmanager main route configuration                              | Dict    |
-| alertmanager_child_routes*                 | Alertmanager secondary routes configuration                        | List    |
-| grafana_auth                               | Grafana user and password                                          | Dict    |
 
 > \* For more details see [here](https://github.com/cloudalchemy/ansible-alertmanager/blob/master/defaults/main.yml) and [here](https://prometheus.io/docs/alerting/configuration/)
 
 > \*\* **Important note**: In the current implementation, health check target generation relies heavily on services being operational during playbook execution. If you wish however to redeploy the playbook on a partially failing platform, specify `prometheus_blackbox_targets_regenerate: false`, otherwise keep it at true at all times.
 
+---
 
 ### Install
 
@@ -119,6 +122,8 @@ ansible-playbook -i inventory/current.ini main.yml
 ```
 
 head to `http://[ADMIN_IP]:3000` and login with credentials (default `admin:admin`), then head to the dashboard named `Overview`.
+
+---
 
 ### Upgrade
 
@@ -129,11 +134,15 @@ ansible-playbook -i inventory/current.ini playbooks/uninstall.yml
 ansible-playbook -i inventory/current.ini main.yml
 ```
 
+---
+
 ### Uninstall
 
 ```sh
 ansible-playbook -i inventory/current.ini playbooks/uninstall.yml
 ```
+
+---
 
 ### Troubleshoot
 
@@ -176,6 +185,8 @@ Additionally there needs to be one of the following plugins:
 - container.plugin
 
 > Fix: search netdata logs for plugin errors `tail -n 1000 /var/log/netdata | grep ERROR | grep [MALFUNCTIONING_PLUGIN]`
+
+---
 
 ### Contribute
 
