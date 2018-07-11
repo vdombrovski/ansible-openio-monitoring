@@ -9,6 +9,10 @@
       service:
         name: netdata
         state: stopped
+    - name: Remove plugins
+      package:
+        name: openio-netdata-plugins
+        state: absent
     - name: Remove package
       package:
         name: netdata
