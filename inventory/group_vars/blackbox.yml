@@ -1,7 +1,5 @@
 ---
 blackbox_listen_port: 9115
-blackbox_exporter_web_listen_address: "{{ hostvars[inventory_hostname]['ansible_' +\
- prometheus_default_node_iface]['ipv4']['address'] + ':' + blackbox_listen_port | string }}"
 blackbox_exporter_configuration_modules:
   tcpcheck: { prober: tcp, timeout: 5s }
   icmpcheck: { prober: icmp, timeout: 5s, icmp: { preferred_ip_protocol: "ip4" } }

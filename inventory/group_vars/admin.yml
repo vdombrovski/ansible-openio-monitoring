@@ -1,0 +1,4 @@
+---
+blackbox_exporter_web_listen_address: "{{ hostvars[inventory_hostname]['ansible_' +\
+  prometheus_default_admin_iface]['ipv4']['address'] + ':' + blackbox_listen_port | string }}"
+...
