@@ -20,13 +20,6 @@
   roles:
     - ansible-blackbox-exporter
 
-- name: Install blackbox on admin machine
-  hosts: admin
-  become: true
-  gather_facts: true
-  roles:
-    - ansible-blackbox-exporter
-
 - name: Install prometheus
   hosts: all
   become: true
