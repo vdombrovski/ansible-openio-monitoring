@@ -29,9 +29,6 @@ blackbox_exporter_configuration_modules:
   oioswift:
     prober: http
     timeout: 5s
-    http:
-      fail_if_not_matches_regexp:
-        - ".*swift3.*"
   account:
     prober: http
     timeout: 5s
