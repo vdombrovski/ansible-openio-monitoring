@@ -77,7 +77,6 @@ The inventory is organised by components and by node groups
 - **alertmanager**: node running alertmanager (admin)
 - **blackbox**: all nodes running blackbox_exporter (admin + monitored nodes)
 - **netdata**: all nodes running netdata (monitored nodes)
-
 ---
 
 ### Configure
@@ -112,6 +111,14 @@ For an easy start, modify *inventory/group_vars/all.yml*. The configuration opti
 > \* For more details see [here](https://github.com/cloudalchemy/ansible-alertmanager/blob/master/defaults/main.yml) and [here](https://prometheus.io/docs/alerting/configuration/)
 
 > \*\* **Important note**: In the current implementation, health check target generation relies heavily on services being operational during playbook execution. If you wish however to redeploy the playbook on a partially failing platform, specify `prometheus_blackbox_targets_regenerate: false`, otherwise keep it at true at all times.
+
+---
+
+### Blackbox interface configuration diagram
+
+The following diagram illustrates different interfaces are defined for blackbox
+
+![Blackbox configuration](blackbox_config.jpg)
 
 ---
 
