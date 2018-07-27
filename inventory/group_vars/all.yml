@@ -47,4 +47,6 @@ alertmanager_child_routes:
 
 prometheus_netdata_iface: "{{ prometheus_default_node_iface }}"
 prometheus_blackbox_iface: "{{ prometheus_default_node_iface }}"
+prometheus_blackbox_node_data_iface: "{{ prometheus_default_node_iface }}"
+prometheus_blackbox_node_admin_iface: "{{ prometheus_default_node_iface }}"
 ...
