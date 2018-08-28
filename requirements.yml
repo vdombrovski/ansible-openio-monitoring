@@ -6,7 +6,7 @@
 - src: https://github.com/open-io/ansible-role-openio-netdata
   version: 1.1.8
 - src: https://github.com/open-io/ansible-role-openio-grafana
-  version: 2.1.2
+  version: 2.1.3
 - src: https://github.com/geerlingguy/ansible-role-ntp
   version: master
 - src: https://github.com/cloudalchemy/ansible-blackbox-exporter
